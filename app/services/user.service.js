@@ -7,9 +7,10 @@ class UserService {
 
   extractUserData(payload) {
     const user = {
-      name: payload.name,
+      userName: payload.userName,
       email: payload.email,
       password: payload.password,
+      phone:payload.phone,
       isAdmin: payload.isAdmin
     };
     // Remove undefined fields
@@ -40,6 +41,10 @@ class UserService {
       });
     }
 
+    // async isAdmin() {
+    //   return await this.find({ isAdmin: true });
+    // }
+
     async findById(id) {
       return await this.User.findOne({
         _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
@@ -64,6 +69,14 @@ class UserService {
         _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
       });
       return result.value;
+    }
+
+    async login(payload) {
+      const user = this.extractUserData(payload);
+      return await this.User.findOne({
+        userName: user.userName,
+        password: user.password
+      });
     }
 }
 module.exports = UserService;

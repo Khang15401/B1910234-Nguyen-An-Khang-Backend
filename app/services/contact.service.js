@@ -7,7 +7,7 @@ class ContactService {
 
   extractConactData(payload) {
     const contact = {
-      name: payload.name,
+      username: payload.username,
       email: payload.email,
       address: payload.address,
       phone: payload.phone,
